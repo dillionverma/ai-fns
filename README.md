@@ -8,6 +8,7 @@ The underlying spec is based on OpenAI's new [function calling feature](https://
 
 ## Features
 
+- 🛠️ **8+ built-in functions** - comes included with functions for math, rss, requests, clock and more
 - 🪄 **100% Type-safe** - uses [zod](https://zod.dev/) to validate the input and output of your functions
 - 👶 **Easy to use** - simple API that makes it easy to create your own functions
 - 💨 **Lightweight** - is a small library with minimal dependencies
