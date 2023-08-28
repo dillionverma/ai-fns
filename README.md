@@ -22,7 +22,8 @@ pnpm install ai-fns zod
 ## Usage
 
 ```ts
-// ./functions/add.ts
+// functions/add.ts
+
 import { z } from "zod";
 import { aifn } from "ai-fns";
 
@@ -42,7 +43,8 @@ export default aifn(name, description, schema, fn);
 ```
 
 ```ts
-// ./index.ts
+// index.ts
+
 import { OpenAI } from "openai";
 import add from "./functions/add";
 
