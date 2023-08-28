@@ -13,15 +13,9 @@ The underlying spec is based on OpenAI's new [function calling feature](https://
 - 👶 **Easy to use** - simple API that makes it easy to create your own functions
 - 💨 **Lightweight** - is a small library with minimal dependencies
 
-## Install
-
-```sh
-pnpm install ai-fns zod
-```
-
 ## Before
 
-Create a JSON schema for your function manually and pass it to ChatGPT
+😮‍💨 Create a JSON schema for your function manually and pass it to ChatGPT
 
 ```ts
 const openai = new OpenAI({
@@ -118,7 +112,13 @@ const completion = await openai.chat.completions.create({
 });
 ```
 
-## Usage
+## Install
+
+```sh
+pnpm install ai-fns zod
+```
+
+<!-- ## Usage
 
 ```ts
 // functions/add.ts
@@ -162,7 +162,7 @@ const res = await openai.chat.completions.create({
 });
 
 console.log(res.data.choices[0].message);
-```
+``` -->
 
 ## Examples
 
