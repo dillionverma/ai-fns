@@ -5,7 +5,7 @@ const name = "reddit";
 const description = "Get stories from reddit";
 const schema = z.object({
   subreddit: z.string().optional().default("all").describe("Subreddit"),
-  limit: z.number().optional().default(10).describe("Limit"),
+  limit: z.number().optional().default(5).describe("Limit"),
   category: z
     .enum(["hot", "new", "random", "top", "rising", "controversial"])
     .default("hot")
@@ -21,11 +21,8 @@ const reddit = async ({
     const params = new URLSearchParams({
       limit: limit.toString(),
     });
-
-    const res = await fetch(
-      `https://www.reddit.com/r/${subreddit}/${category}.json?${params.toString()}}`
-    );
-
+    const url = `https://www.reddit.com/r/${subreddit}/${category}.json?${params.toString()}`;
+    const res = await fetch(url);
     return await res.json();
   } catch (error) {
     console.log(error);

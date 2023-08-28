@@ -2,18 +2,18 @@
 
 > Convert any function into a ChatGPT function.
 
-ai-fns is a small library that makes it easy to convert any function into a ChatGPT function.
+ai-fns is a tiny library that makes it easy to convert any function into a ChatGPT function.
 
 ## Features
 
-- **100% Type-safe** - uses [zod](https://zod.dev/) to validate the input and output of your functions
-- **Easy to use** - simple API that makes it easy to create your own functions
-- **Lightweight** - is a small library with minimal dependencies
+- 🪄 **100% Type-safe** - uses [zod](https://zod.dev/) to validate the input and output of your functions
+- 👶 **Easy to use** - simple API that makes it easy to create your own functions
+- 💨 **Lightweight** - is a small library with minimal dependencies
 
 ## Install
 
 ```sh
-pnpm install ai-fns
+pnpm install ai-fns zod
 ```
 
 ## Usage
@@ -56,7 +56,9 @@ const res = await openai.chat.completions.create({
 console.log(res.data.choices[0].text);
 ```
 
-## Basic Example
+## Examples
+
+### Basic Calculator Function
 
 Here's an example of a function that calculates the output of a given mathematical expression:
 
@@ -91,7 +93,7 @@ User: What's 45^(2.12) / 45?
 Assistant: The result of 45^(2.12) / 45 is approximately 71.06.
 ```
 
-## Advanced Example
+### (Advanced) Fetching the Latest stories from reddit
 
 Here's an example of a function that fetches the latest news from an rss feed:
 
@@ -103,7 +105,7 @@ const name = "reddit";
 const description = "Get stories from reddit";
 const schema = z.object({
   subreddit: z.string().optional().default("all").describe("Subreddit"),
-  limit: z.number().optional().default(10).describe("Limit"),
+  limit: z.number().optional().default(5).describe("Limit"),
   category: z
     .enum(["hot", "new", "random", "top", "rising", "controversial"])
     .default("hot")
@@ -119,11 +121,8 @@ const reddit = async ({
     const params = new URLSearchParams({
       limit: limit.toString(),
     });
-
-    const res = await fetch(
-      `https://www.reddit.com/r/${subreddit}/${category}.json?${params.toString()}}`
-    );
-
+    const url = `https://www.reddit.com/r/${subreddit}/${category}.json?${params.toString()}`;
+    const res = await fetch(url);
     return await res.json();
   } catch (error) {
     console.log(error);
@@ -134,18 +133,16 @@ const reddit = async ({
 export default aifn(name, description, schema, reddit);
 ```
 
-Let's ask ChatGPT to fetch the latest news from the [Hacker News RSS feed](https://news.ycombinator.com/rss)
-
 ```
-User: What's the top story on Hacker News today?
-Assistant: The top story on Hacker News today is "A new method to reprogram human cells to better mimic embryonic stem cells". It has a score of 294 and 72 comments. You can read more about it [here](https://www.uwa.edu.au/news/Article/2023/August/Scientists-find-way-to-wipe-a-cells-memory-to-reprogram-it-as-a-stem-cell).
+User: What's the top story on /r/programming today?
+Assistant: The top story on /r/programming is "Crumb: A New Programming Language Where There are No Keywords, and Everything is a Function". You can read more about it [here](https://github.com/liam-ilan/crumb). It has received 201 upvotes and has 25 comments.
 ```
 
 ## Contributing
 
 Do you have an idea for a function? Feel free to open a pull request!
 
-Simply create a new file in the `functions` directory and add your function. Make sure to add a description and schema for your function.
+Simply create a new file in the `src/functions` directory and add your function. Make sure to add a description and schema for your function.
 
 ```ts
 import { z } from "zod";

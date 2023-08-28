@@ -3,6 +3,7 @@ import { aifn } from "../utils";
 
 export const name = "weather";
 export const description = "Get the current weather in a given location";
+
 export const schema = z.object({
   longitude: z.number().min(-180).max(180).describe("Longitude"),
   latitude: z.number().min(-90).max(90).describe("Latitude"),
