@@ -96,27 +96,42 @@ Assistant: The result of 45^(2.12) / 45 is approximately 71.06.
 Here's an example of a function that fetches the latest news from an rss feed:
 
 ```ts
-import Parser from "rss-parser";
 import { z } from "zod";
 import { aifn } from "ai-fns";
 
-const parser = new Parser();
-
-export const name = "rss";
-export const description = "Get the latest news from an rss feed";
-export const schema = z.object({
-  url: z.string(),
+const name = "reddit";
+const description = "Get stories from reddit";
+const schema = z.object({
+  subreddit: z.string().optional().default("all").describe("Subreddit"),
+  limit: z.number().optional().default(10).describe("Limit"),
+  category: z
+    .enum(["hot", "new", "random", "top", "rising", "controversial"])
+    .default("hot")
+    .describe("category"),
 });
 
-export const rss = async ({ url }: z.infer<typeof schema>) => {
+const reddit = async ({
+  subreddit,
+  category,
+  limit,
+}: z.infer<typeof schema>) => {
   try {
-    const feed = await parser.parseURL(url);
-    return feed;
+    const params = new URLSearchParams({
+      limit: limit.toString(),
+    });
+
+    const res = await fetch(
+      `https://www.reddit.com/r/${subreddit}/${category}.json?${params.toString()}}`
+    );
+
+    return await res.json();
   } catch (error) {
-    return `Failed to execute script: ${error.message}`;
+    console.log(error);
+    return error;
   }
 };
-export default aifn(name, description, schema, rss);
+
+export default aifn(name, description, schema, reddit);
 ```
 
 Let's ask ChatGPT to fetch the latest news from the [Hacker News RSS feed](https://news.ycombinator.com/rss)

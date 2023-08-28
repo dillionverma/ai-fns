@@ -4,19 +4,26 @@ import { aifn } from "../utils";
 const name = "reddit";
 const description = "Get stories from reddit";
 const schema = z.object({
-  subreddit: z.string().optional(),
-  limit: z.number().optional(),
-  type: z.enum(["hot", "new", "random", "top", "rising", "controversial"]),
+  subreddit: z.string().optional().default("all").describe("Subreddit"),
+  limit: z.number().optional().default(10).describe("Limit"),
+  category: z
+    .enum(["hot", "new", "random", "top", "rising", "controversial"])
+    .default("hot")
+    .describe("category"),
 });
 
-const reddit = async ({ subreddit, type, limit }: z.infer<typeof schema>) => {
+const reddit = async ({
+  subreddit,
+  category,
+  limit,
+}: z.infer<typeof schema>) => {
   try {
     const params = new URLSearchParams({
-      limit: limit ? limit.toString() : "10",
+      limit: limit.toString(),
     });
 
     const res = await fetch(
-      `https://www.reddit.com/r/${subreddit}/${type}.json?${params.toString()}}`
+      `https://www.reddit.com/r/${subreddit}/${category}.json?${params.toString()}}`
     );
 
     return await res.json();

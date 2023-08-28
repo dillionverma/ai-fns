@@ -8,7 +8,7 @@ export const schema = z.object({
   latitude: z.number().min(-90).max(90).describe("Latitude"),
 });
 
-const weather = async ({ latitude, longitude }: z.infer<typeof schema>) => {
+const fn = async ({ latitude, longitude }: z.infer<typeof schema>) => {
   try {
     const res = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
@@ -22,4 +22,4 @@ const weather = async ({ latitude, longitude }: z.infer<typeof schema>) => {
   }
 };
 
-export default aifn(name, description, schema, weather);
+export default aifn(name, description, schema, fn);
