@@ -1,13 +1,23 @@
 {
   "name": "ai-fns",
-  "description": "Instantly convert your JavaScript functions into functions which can be called by GPT-3.5 and GPT-4.",
   "version": "1.0.0",
+  "author": "Dillion Verma <hello@dillion.io>",
+  "license": "MIT",
+  "repository": "https://github.com/dillionverma/ai-fns",
+  "description": "Instantly convert your JavaScript functions into functions which can be called by GPT-3.5 and GPT-4.",
+  "keywords": [
+    "typescript",
+    "ai",
+    "openai",
+    "gpt-3",
+    "gpt-4",
+    "llm",
+    "chatgpt"
+  ],
   "main": "index.ts",
   "scripts": {
     "cli": "npx tsx cli/index.ts"
   },
-  "author": "Dillion Verma <hello@dillion.io>",
-  "license": "MIT",
   "dependencies": {
     "expr-eval": "^2.0.2",
     "nodemailer": "^6.9.4",
