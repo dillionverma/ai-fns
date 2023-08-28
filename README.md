@@ -22,6 +22,7 @@ pnpm install ai-fns zod
 ## Usage
 
 ```ts
+// ./functions/add.ts
 import { z } from "zod";
 import { aifn } from "ai-fns";
 
@@ -41,8 +42,9 @@ export default aifn(name, description, schema, fn);
 ```
 
 ```ts
+// ./index.ts
 import { OpenAI } from "openai";
-import add from "./tools/add";
+import add from "./functions/add";
 
 const openai = new OpenAI({
   apiKey: "sk-****************************",
@@ -153,7 +155,7 @@ Assistant: The top story on /r/programming is "Crumb: A New Programming Language
 
 ## Why?
 
-OpenAI's new function calling feature allows you to call functions from within ChatGPT.
+OpenAI's new [function calling feature](https://platform.openai.com/docs/guides/gpt/function-calling) allows you to call functions from within ChatGPT.
 
 However, it requires you to pass as JSON schema for your function containing the input and output types of your function. This is a bit cumbersome to do manually.
 
