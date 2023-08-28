@@ -19,6 +19,109 @@ The underlying spec is based on OpenAI's new [function calling feature](https://
 pnpm install ai-fns zod
 ```
 
+## Before
+
+```ts
+// Create a JSON schema for your function manually and pass it to ChatGPT
+
+const openai = new OpenAI({
+  apiKey: env.OPENAI_API_KEY,
+});
+
+const model = "gpt-3.5-turbo-16k";
+const messages: OpenAI.Chat.CreateChatCompletionRequestMessage[] = [
+  { role: "user", content: "What's the weather in San Francisco?" },
+];
+
+const weather = async ({
+  latitude,
+  longitude,
+}: {
+  latitude: number;
+  longitude: number;
+}) => {
+  try {
+    const res = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+    );
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+const functions: OpenAI.Chat.CompletionCreateParams.Function[] = [
+  {
+    name: "weather",
+    description: "Get the current weather in a given location",
+    parameters: {
+      type: "object",
+      properties: {
+        longitude: {
+          type: "number",
+          minimum: -180,
+          maximum: 180,
+          description: "Longitude",
+        },
+        latitude: {
+          type: "number",
+          minimum: -90,
+          maximum: 90,
+          description: "Latitude",
+        },
+      },
+      required: ["longitude", "latitude"],
+      additionalProperties: false,
+    },
+  },
+];
+
+const completion = await openai.chat.completions.create({
+  model,
+  messages,
+  functions,
+});
+```
+
+## After
+
+```ts
+const name = "weather";
+const description = "Get the current weather in a given location";
+const weatherSchema = z.object({
+  longitude: z.number().min(-180).max(180).describe("Longitude"),
+  latitude: z.number().min(-90).max(90).describe("Latitude"),
+});
+const weather = async ({ latitude, longitude }: z.infer<typeof schema>) => {
+  try {
+    const res = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+    );
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+const { schema, fn } = aifn(name, description, weatherSchema, weather);
+
+// Define schema to be used by the AI
+const functions = [schema];
+
+// Ask the AI a question
+const completion = await openai.chat.completions.create({
+  model,
+  messages,
+  functions,
+});
+```
+
 ## Usage
 
 ```ts
@@ -69,7 +172,7 @@ console.log(res.data.choices[0].message);
 
 <details>
 <summary>
-(Basic) Calculator Function
+(Basic) Calculator Function (CLICK TO EXPAND)
 </summary>
 
 Here's an example of a function that calculates the output of a given mathematical expression:
@@ -109,7 +212,7 @@ Assistant: The result of 45^(2.12) / 45 is approximately 71.06.
 
 <details>
 <summary>
-(Advanced) Reddit Function - Get the latest news from any subreddit
+(Advanced) Reddit Function - Get the latest news from any subreddit (CLICK TO EXPAND)
 </summary>
 
 Here's an example of a function that fetches the latest news from an rss feed:

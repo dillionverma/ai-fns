@@ -11,4 +11,4 @@ export { default as sms } from "./functions/sms";
 export { default as weather } from "./functions/weather";
 
 // Export utils
-export { OpenAIFunctionSchema, aifn } from "./utils";
+export { OpenAIFunctionSchema, aifn } from "./aifn";
