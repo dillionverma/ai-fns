@@ -1,7 +1,7 @@
 import { Twilio } from "twilio";
 import { z } from "zod";
 import { env } from "../../env";
-import { aifn } from "../utils";
+import { aifn } from "../aifn";
 
 const client = new Twilio(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN);
 const FROM = env.TWILIO_PHONE_NUMBER;

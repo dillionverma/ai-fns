@@ -21,9 +21,9 @@ pnpm install ai-fns zod
 
 ## Before
 
-```ts
-// Create a JSON schema for your function manually and pass it to ChatGPT
+Create a JSON schema for your function manually and pass it to ChatGPT
 
+```ts
 const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
@@ -44,11 +44,8 @@ const weather = async ({
     const res = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
     );
-    const data = await res.json();
-    console.log(data);
-    return data;
+    return await res.json();
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -88,28 +85,27 @@ const completion = await openai.chat.completions.create({
 
 ## After
 
-```ts
-const name = "weather";
-const description = "Get the current weather in a given location";
-const weatherSchema = z.object({
-  longitude: z.number().min(-180).max(180).describe("Longitude"),
-  latitude: z.number().min(-90).max(90).describe("Latitude"),
-});
-const weather = async ({ latitude, longitude }: z.infer<typeof schema>) => {
-  try {
-    const res = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
-    );
-    const data = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-};
+✨ Use ai-fns to automatically generate the schema for your function and pass it to ChatGPT
 
-const { schema, fn } = aifn(name, description, weatherSchema, weather);
+```ts
+const { schema, fn } = aifn(
+  "weather",
+  "Get the current weather in a given location",
+  z.object({
+    longitude: z.number().min(-180).max(180).describe("Longitude"),
+    latitude: z.number().min(-90).max(90).describe("Latitude"),
+  }),
+  async ({ latitude, longitude }) => {
+    try {
+      const res = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+      );
+      return await res.json();
+    } catch (error) {
+      return error;
+    }
+  }
+);
 
 // Define schema to be used by the AI
 const functions = [schema];

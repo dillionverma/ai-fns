@@ -1,6 +1,6 @@
 import { Parser } from "expr-eval";
 import { z } from "zod";
-import { aifn } from "../utils";
+import { aifn } from "../aifn";
 
 const parser = new Parser();
 

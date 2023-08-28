@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { aifn } from "../utils";
+import { aifn } from "../aifn";
 
 const name = "reddit";
 const description = "Get stories from reddit";

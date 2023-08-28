@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { aifn } from "../utils";
+import { aifn } from "../aifn";
 
 export const name = "weather";
 export const description = "Get the current weather in a given location";
@@ -14,11 +14,8 @@ const fn = async ({ latitude, longitude }: z.infer<typeof schema>) => {
     const res = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
     );
-    const data = await res.json();
-    console.log(data);
-    return data;
+    return res.json();
   } catch (error) {
-    console.log(error);
     return error;
   }
 };

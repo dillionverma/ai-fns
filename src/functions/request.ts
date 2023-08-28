@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { aifn } from "../utils";
+import { aifn } from "../aifn";
 
 export default aifn(
   "request",
