@@ -18,6 +18,8 @@ The underlying spec is based on OpenAI's new [function calling feature](https://
 😮‍💨 Create a JSON schema for your function manually and pass it to ChatGPT
 
 ```ts
+import openai, { OpenAI } from "openai";
+
 const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
@@ -82,6 +84,10 @@ const completion = await openai.chat.completions.create({
 ✨ Use ai-fns to automatically generate the schema for your function and pass it to ChatGPT
 
 ```ts
+import openai, { OpenAI } from "openai";
+import { z } from "zod";
+import { aifn } from "ai-fns";
+
 const { schema, fn } = aifn(
   "weather",
   "Get the current weather in a given location",
