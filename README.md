@@ -172,7 +172,7 @@ console.log(res.data.choices[0].message);
 
 <details>
 <summary>
-(Basic) Calculator Function (CLICK TO EXPAND)
+(CLICK TO EXPAND) (Basic) Calculator Function
 </summary>
 
 Here's an example of a function that calculates the output of a given mathematical expression:
@@ -212,7 +212,7 @@ Assistant: The result of 45^(2.12) / 45 is approximately 71.06.
 
 <details>
 <summary>
-(Advanced) Reddit Function - Get the latest news from any subreddit (CLICK TO EXPAND)
+(CLICK TO EXPAND) (Advanced) Reddit Function - Get the latest news from any subreddit
 </summary>
 
 Here's an example of a function that fetches the latest news from an rss feed:
