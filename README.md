@@ -6,21 +6,6 @@ ai-fns is a tiny library that convert any function into a function that can be c
 
 The underlying spec is based on OpenAI's new [function calling feature](https://platform.openai.com/docs/guides/gpt/function-calling).
 
-## Why?
-
-OpenAI's new function calling feature allows you to call functions from within ChatGPT.
-
-However, it requires you to pass as JSON schema for your function containing the input and output types of your function. This is a bit cumbersome to do manually.
-
-This library automatically handles the conversion for you ✨
-
-## Where can I use this?
-
-This is useful for you if:
-
-- You are building AI agents which need to call functions
-- You want ChatGPT to output structured data (e.g. JSON)
-
 ## Features
 
 - 🪄 **100% Type-safe** - uses [zod](https://zod.dev/) to validate the input and output of your functions
@@ -164,6 +149,19 @@ Assistant: The top story on /r/programming is "Crumb: A New Programming Language
 ```
 
 </details>
+
+## Why?
+
+OpenAI's new function calling feature allows you to call functions from within ChatGPT.
+
+However, it requires you to pass as JSON schema for your function containing the input and output types of your function. This is a bit cumbersome to do manually.
+
+This library automatically handles the conversion for you ✨
+
+## Where can I use this?
+
+- ✅ You are building AI agents which need to call functions
+- ✅ You want ChatGPT to output structured data (e.g. JSON)
 
 ## Contributing
 
