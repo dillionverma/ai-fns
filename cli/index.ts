@@ -2,7 +2,7 @@ import { input } from "@inquirer/prompts";
 import chalk from "chalk";
 import "dotenv/config";
 import OpenAI from "openai";
-import { env } from "../env.mjs";
+import { env } from "../env";
 import * as tools from "../src/functions";
 import { askAI } from "../src/utils";
 

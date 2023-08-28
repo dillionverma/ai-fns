@@ -1,6 +1,6 @@
 import { Twilio } from "twilio";
 import { z } from "zod";
-import { env } from "../../env.mjs";
+import { env } from "../../env";
 import { aifn } from "../utils";
 
 const client = new Twilio(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN);
