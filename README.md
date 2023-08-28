@@ -52,15 +52,17 @@ const openai = new OpenAI({
   apiKey: "sk-****************************",
 });
 
+const model = "gpt-4";
 const messages = [{ role: "user", content: "What is 9 + 10?" }];
+const functions = [add.schema]; // add your function's schema here
 
 const res = await openai.chat.completions.create({
-  model: "gpt-4",
-  functions: [add.schema], // add your function's schema here
+  model,
+  functions,
   messages,
 });
 
-console.log(res.data.choices[0].text);
+console.log(res.data.choices[0].message);
 ```
 
 ## Examples
