@@ -81,7 +81,7 @@ const completion = await openai.chat.completions.create({
 
 ## After
 
-✨ Use ai-fns to automatically generate the schema for your function and pass it to ChatGPT
+✨ Use `ai-fns` to automatically generate a schema for your function and pass it to ChatGPT
 
 ```ts
 import openai, { OpenAI } from "openai";
