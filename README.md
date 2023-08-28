@@ -58,7 +58,10 @@ console.log(res.data.choices[0].text);
 
 ## Examples
 
+<details>
+<summary>
 ### Basic Calculator Function
+</summary>
 
 Here's an example of a function that calculates the output of a given mathematical expression:
 
@@ -93,7 +96,12 @@ User: What's 45^(2.12) / 45?
 Assistant: The result of 45^(2.12) / 45 is approximately 71.06.
 ```
 
+</details>
+
+<details>
+<summary>
 ### (Advanced) Fetching the Latest stories from reddit
+</summary>
 
 Here's an example of a function that fetches the latest news from an rss feed:
 
@@ -138,6 +146,7 @@ User: What's the top story on /r/programming today?
 Assistant: The top story on /r/programming is "Crumb: A New Programming Language Where There are No Keywords, and Everything is a Function". You can read more about it [here](https://github.com/liam-ilan/crumb). It has received 201 upvotes and has 25 comments.
 ```
 
+</details>
 ## Contributing
 
 Do you have an idea for a function? Feel free to open a pull request!
