@@ -94,6 +94,15 @@ import openai, { OpenAI } from "openai";
 import { z } from "zod";
 import { aifn } from "ai-fns";
 
+const openai = new OpenAI({
+  apiKey: env.OPENAI_API_KEY,
+});
+
+const model = "gpt-3.5-turbo-16k";
+const messages: OpenAI.Chat.CreateChatCompletionRequestMessage[] = [
+  { role: "user", content: "What's the weather in San Francisco?" },
+];
+
 const { schema, fn } = aifn(
   "weather",
   "Get the current weather in a given location",
@@ -113,7 +122,6 @@ const { schema, fn } = aifn(
   }
 );
 
-// Define schema to be used by the AI
 const functions = [schema];
 
 // Ask the AI a question
