@@ -30,11 +30,6 @@ const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
 
-const model = "gpt-3.5-turbo-16k";
-const messages: OpenAI.Chat.CreateChatCompletionRequestMessage[] = [
-  { role: "user", content: "What's the weather in San Francisco?" },
-];
-
 const weather = async ({
   latitude,
   longitude,
@@ -52,36 +47,34 @@ const weather = async ({
   }
 };
 
-const functions: OpenAI.Chat.CompletionCreateParams.Function[] = [
-  {
-    name: "weather",
-    description: "Get the current weather in a given location",
-    parameters: {
-      type: "object",
-      properties: {
-        longitude: {
-          type: "number",
-          minimum: -180,
-          maximum: 180,
-          description: "Longitude",
-        },
-        latitude: {
-          type: "number",
-          minimum: -90,
-          maximum: 90,
-          description: "Latitude",
-        },
-      },
-      required: ["longitude", "latitude"],
-      additionalProperties: false,
-    },
-  },
-];
-
 const completion = await openai.chat.completions.create({
-  model,
-  messages,
-  functions,
+  model: "gpt-3.5-turbo-16k",
+  messages: [{ role: "user", content: "What's the weather in San Francisco?" }],
+  functions: [
+    {
+      name: "weather",
+      description: "Get the current weather in a given location",
+      parameters: {
+        type: "object",
+        properties: {
+          longitude: {
+            type: "number",
+            minimum: -180,
+            maximum: 180,
+            description: "Longitude",
+          },
+          latitude: {
+            type: "number",
+            minimum: -90,
+            maximum: 90,
+            description: "Latitude",
+          },
+        },
+        required: ["longitude", "latitude"],
+        additionalProperties: false,
+      },
+    },
+  ],
 });
 ```
 
@@ -97,11 +90,6 @@ import { aifn } from "ai-fns";
 const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
-
-const model = "gpt-3.5-turbo-16k";
-const messages: OpenAI.Chat.CreateChatCompletionRequestMessage[] = [
-  { role: "user", content: "What's the weather in San Francisco?" },
-];
 
 const { schema, fn } = aifn(
   "weather",
@@ -122,13 +110,11 @@ const { schema, fn } = aifn(
   }
 );
 
-const functions = [schema];
-
 // Ask the AI a question
 const completion = await openai.chat.completions.create({
-  model,
-  messages,
-  functions,
+  model: "gpt-3.5-turbo-16k",
+  messages: [{ role: "user", content: "What's the weather in San Francisco?" }],
+  functions: [schema],
 });
 ```
 
